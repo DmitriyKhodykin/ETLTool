@@ -27,3 +27,43 @@
 ssh root@your_server_ip
 ```
 
+Шаг 2 — Создание нового пользователя (например, с именем sammy)
+
+```
+adduser sammy
+```
+
+Шаг 3 — Предоставление прав администратора
+
+```
+usermod -aG sudo sammy
+```
+
+Шаг 4 — Установка простого брандмауэра (UFW)
+
+```
+# ufw app list
+
+Output
+Available applications:
+OpenSSH
+
+# ufw allow OpenSSH
+# ufw enable
+# ufw status
+
+Output
+Status: active
+
+To                         Action      From
+--                         ------      ----
+OpenSSH                    ALLOW       Anywhere
+OpenSSH (v6)               ALLOW       Anywhere (v6)
+```
+
+Шаг 5 — Предоставление внешнего доступа для обычного пользователя
+
+```
+ssh sammy@your_server_ip
+```
+
