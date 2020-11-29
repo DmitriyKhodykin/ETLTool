@@ -23,5 +23,7 @@
 
 Шаг 1 — Вход в систему под именем Root
 
-'''ssh root@your_server_ip'''
+'''
+ssh root@your_server_ip
+'''
 
