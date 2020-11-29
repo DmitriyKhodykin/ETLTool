@@ -67,3 +67,17 @@ OpenSSH (v6)               ALLOW       Anywhere (v6)
 ssh sammy@your_server_ip
 ```
 
+Подробнее о начальной настройке сервера: https://www.digitalocean.com/community/tutorials/ubuntu-18-04-ru
+
+## Установка Node.js
+
+Для последующих инстансов потребуется Node.js - среда для запуска Java Script.
+
+Будем устанавливать крайнюю актуальную версию LTS. Уточнить эту версию можно по ссылке: https://nodejs.org/en/about/releases/
+
+Крайней считается версия перед `Current`
+
+## Установка Jupyter Lab
+
+## Установка Cronicle
+
