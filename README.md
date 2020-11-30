@@ -92,13 +92,15 @@ sudo bash nodesource_setup.sh
 
 ```
 sudo apt install nodejs
-
 ```
+
+Пакет NodeSource nodejs содержит двоичный код node и npm, так что не нужно устанавливать `npm` отдельно.
 
 Проверка установленной версии:
 
 ```
 node -v
+npm -v
 
 Output
 v14.2.0
