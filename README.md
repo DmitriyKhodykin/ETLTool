@@ -13,12 +13,14 @@
 ## Используемые решения
 
 Для сборки ETL-инструмента используются следующие компоненты:
-- ОС - Ubuntu 20.04 на виртуальном сервере: https://www.reg.ru/vps/cloud/
-- Jupyter Lab - инструмент с WEB-интерфейсом для создания и запуска скриптов в режиме ноутбука: https://jupyterlab.readthedocs.io/en/stable/ 
+- ОС - Ubuntu 20.04 на виртуальном сервере
+- Jupyter Lab - инструмент с WEB-интерфейсом для создания и запуска скриптов в режиме ноутбука
 - Jupyter Hub - многопользовательский сервер для запуска Jupyter Notebooks (в которых аналитики будут непосредственно создавать ETL-скрипты)
 - Papermill - инструмент для запуска кода внутри Jupyter Notebooks вне среды Jupyter Lab (необходим для запуска Notebooks по расписанию из Cronicle)
 - PETL и Pandas - для обработки табличных данных
-- Cronicle - планировщик заданий с WEB-интерфейсом: https://github.com/jhuckaby/Cronicle 
+- Requests - Python-библиотека для работы с HTTP-запросами
+- Cronicle - планировщик заданий с WEB-интерфейсом
+- MySQL - система управления базами данных
 
 ## Алгоритм установки и настройки OC Ubuntu
 
@@ -153,7 +155,9 @@ sudo /opt/jupyterhub/bin/python3 -m pip install ipywidgets
 
 Логин и пароль - аналогичны логину и паролю для входа в Linux-систему.
 
-## Установка Papermill, PETL, Pandas
+Подробнее об установке Jupyter Hub и Jupyter Lab https://jupyterhub.readthedocs.io/en/stable/installation-guide-hard.html
+
+## Установка Papermill, PETL, Pandas, Requests
 
 Установка через PIP:
 
@@ -162,6 +166,14 @@ sudo /opt/jupyterhub/bin/python3 -m pip install papermill
 sudo /opt/jupyterhub/bin/python3 -m pip install petl
 sudo /opt/jupyterhub/bin/python3 -m pip install pandas
 ```
+
+Requests входит в базовую поставку Jupyter Lab.
+
+Документация:
+- papermill: https://papermill.readthedocs.io/en/latest/
+- PETL: https://petl.readthedocs.io/en/stable/
+- Pandas: https://pandas.pydata.org/
+- Requests: https://requests.readthedocs.io/en/master/
 
 ## Установка Cronicle
 
