@@ -14,8 +14,8 @@
 
 Для сборки ETL-инструмента используются следующие компоненты:
 - ОС - Ubuntu 20.04 на виртуальном сервере: https://www.reg.ru/vps/cloud/
-- Jupyter Hub - многопользовательский сервер для запуска Jupyter-ноутбуков (в которых аналитики и будут непосредственно создавать ETL-скрипты)
 - Jupyter Lab - инструмент с WEB-интерфейсом для создания и запуска скриптов в режиме ноутбука: https://jupyterlab.readthedocs.io/en/stable/ 
+- Jupyter Hub - многопользовательский сервер для запуска Jupyter-ноутбуков (в которых аналитики и будут непосредственно создавать ETL-скрипты)
 - Cronicle - Планировщик заданий с WEB-интерфейсом: https://github.com/jhuckaby/Cronicle 
 
 ## Алгоритм установки и настройки OC Ubuntu
@@ -103,9 +103,7 @@ v14.2.0
 
 Подробнее об установке Node.js: https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04-ru
 
-## Установка Jupyter Hub
-
-Для предоставления многопользовательских сценариев работы с ETL-скриптами необходим Jupyter Hub.
+## Установка Jupyter Lab
 
 Для начала установим PIP:
 
@@ -113,8 +111,16 @@ v14.2.0
 sudo apt update
 sudo apt install python3-pip
 ```
+Далее, Jupyter Lab:
+```
+sudo pip3 install jupyterlab
+```
 
-Далее, установим Jupyter Hub
+## Установка Jupyter Hub
+
+Для предоставления многопользовательских сценариев работы с ETL-скриптами необходим Jupyter Hub.
+
+Установим Jupyter Hub
 
 ```
 sudo python3 -m pip install jupyterhub
@@ -134,6 +140,8 @@ jupyterhub
 ```
 
 После запуска Jupyter Hub доступен по адресу http://YOUR_SERVER_HOSTNAME:8000/
+
+Логин и пароль - аналогичны логину и паролю для входа в Linux-систему.
 
 ## Установка Cronicle
 
