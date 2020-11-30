@@ -102,7 +102,37 @@ v14.2.0
 
 Подробнее об установке Node.js: https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04-ru
 
-## Установка Jupyter Lab
+## Установка Jupyter Hub
+
+Для предоставления многопользовательских сценариев работы с ETL-скриптами необходим Jupyter Hub.
+
+Для начала установим PIP:
+
+```
+sudo apt update
+sudo apt install python3-pip
+```
+
+Далее, установим Jupyter Hub
+
+```
+sudo python3 -m pip install jupyterhub
+sudo npm install -g configurable-http-proxy
+```
+
+Протестируем установку:
+
+```
+jupyterhub -h
+```
+
+Запуск сервиса:
+
+```
+jupyterhub
+```
+
+После запуска Jupyter Hub доступен по адресу http://YOUR_SERVER_HOSTNAME:8000/
 
 ## Установка Cronicle
 
