@@ -151,6 +151,59 @@ HTML-виджеты:
 sudo /opt/jupyterhub/bin/python3 -m pip install ipywidgets
 ```
 
+### Конфигурационные файлы для Jupyter Hub
+
+```
+sudo mkdir -p /opt/jupyterhub/etc/jupyterhub/
+cd /opt/jupyterhub/etc/jupyterhub/
+sudo /opt/jupyterhub/bin/jupyterhub --generate-config
+```
+
+Крайняя процедура создаст конфигурационный файл /opt/jupyterhub/etc/jupyterhub/jupyterhub_config.py
+
+```
+sudo nano /opt/jupyterhub/etc/jupyterhub/jupyterhub_config.py
+```
+
+Внутри конфигурационного файла:
+
+```
+c.Spawner.default_url = '/lab'
+```
+
+### Настройка Jupyter Hub как сервиса
+
+```
+sudo mkdir -p /opt/jupyterhub/etc/systemd
+sudo nano /opt/jupyterhub/etc/systemd/jupyterhub.service
+```
+
+Внутри файла конфигурации:
+
+```
+[Unit]
+Description=JupyterHub
+After=syslog.target network.target
+
+[Service]
+User=root
+Environment="PATH=/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/jupyterhub/bin"
+ExecStart=/opt/jupyterhub/bin/jupyterhub -f /opt/jupyterhub/etc/jupyterhub/jupyterhub_config.py
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Запустим сервис:
+
+```
+sudo ln -s /opt/jupyterhub/etc/systemd/jupyterhub.service /etc/systemd/system/jupyterhub.service
+sudo systemctl daemon-reload
+sudo systemctl enable jupyterhub.service
+sudo systemctl start jupyterhub.service
+sudo systemctl status jupyterhub.service
+```
+
 После запуска Jupyter Hub доступен по адресу http://YOUR_SERVER_HOSTNAME:8000/
 
 Логин и пароль - аналогичны логину и паролю для входа в Linux-систему.
