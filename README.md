@@ -15,8 +15,9 @@
 Для сборки ETL-инструмента используются следующие компоненты:
 - ОС - Ubuntu 20.04 на виртуальном сервере: https://www.reg.ru/vps/cloud/
 - Jupyter Lab - инструмент с WEB-интерфейсом для создания и запуска скриптов в режиме ноутбука: https://jupyterlab.readthedocs.io/en/stable/ 
-- Jupyter Hub - многопользовательский сервер для запуска Jupyter-ноутбуков (в которых аналитики и будут непосредственно создавать ETL-скрипты)
-- Cronicle - Планировщик заданий с WEB-интерфейсом: https://github.com/jhuckaby/Cronicle 
+- Jupyter Hub - многопользовательский сервер для запуска Jupyter Notebooks (в которых аналитики будут непосредственно создавать ETL-скрипты)
+- Papermill - инструмент для запуска кода внутри Jupyter Notebooks вне среды Jupyter Lab (необходим для запуска Notebooks по расписанию из Cronicle)
+- Cronicle - планировщик заданий с WEB-интерфейсом: https://github.com/jhuckaby/Cronicle 
 
 ## Алгоритм установки и настройки OC Ubuntu
 
@@ -142,6 +143,14 @@ jupyterhub
 После запуска Jupyter Hub доступен по адресу http://YOUR_SERVER_HOSTNAME:8000/
 
 Логин и пароль - аналогичны логину и паролю для входа в Linux-систему.
+
+## Установка Papermill
+
+Установка через PIP:
+
+```
+sudo python3 -m pip install papermill
+```
 
 ## Установка Cronicle
 
