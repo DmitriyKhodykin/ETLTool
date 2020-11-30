@@ -194,6 +194,12 @@ ExecStart=/opt/jupyterhub/bin/jupyterhub -f /opt/jupyterhub/etc/jupyterhub/jupyt
 WantedBy=multi-user.target
 ```
 
+configurable-http-proxy:
+
+```
+npm install -g configurable-http-proxy
+```
+
 Запустим сервис:
 
 ```
