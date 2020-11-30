@@ -14,7 +14,8 @@
 
 Для сборки ETL-инструмента используются следующие компоненты:
 - ОС - Ubuntu 20.04 на виртуальном сервере: https://www.reg.ru/vps/cloud/
-- Jupyter Lab - инструмент для создания и запуска скриптов с WEB-интерфейсом: https://jupyterlab.readthedocs.io/en/stable/ 
+- Jupyter Hub - многопользовательский сервер для запуска Jupyter-ноутбуков (в которых аналитики и будут непосредственно создавать ETL-скрипты)
+- Jupyter Lab - инструмент с WEB-интерфейсом для создания и запуска скриптов в режиме ноутбука: https://jupyterlab.readthedocs.io/en/stable/ 
 - Cronicle - Планировщик заданий с WEB-интерфейсом: https://github.com/jhuckaby/Cronicle 
 
 ## Алгоритм установки и настройки OC Ubuntu
