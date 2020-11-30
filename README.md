@@ -77,6 +77,29 @@ ssh sammy@your_server_ip
 
 Крайней считается версия перед `Current`
 
+Добавление репозитория:
+
+```
+cd ~
+curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
+sudo bash nodesource_setup.sh
+```
+
+Установка:
+
+```
+sudo apt install nodejs
+```
+
+Проверка установленной версии:
+
+```
+node -v
+
+Output
+v14.2.0
+```
+
 ## Установка Jupyter Lab
 
 ## Установка Cronicle
