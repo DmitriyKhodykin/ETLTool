@@ -100,7 +100,46 @@ Output
 v14.2.0
 ```
 
+Подробнее об установке Node.js: https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04-ru
+
 ## Установка Jupyter Lab
 
 ## Установка Cronicle
 
+Установка осуществляется от имени root (с правами sudo от имени обычного пользователя дистрибутив не установится).
+
+После установки Node.js:
+
+```
+curl -s https://raw.githubusercontent.com/jhuckaby/Cronicle/master/bin/install.js | node
+```
+
+Это установит последний стабильный выпуск Chronicle и все его зависимости в: /opt/chronicle/
+
+Если вы пожелаете установить его вручную (или что-то пошло не так с автоматической установкой), вот исходные команды:
+
+```
+mkdir -p /opt/cronicle
+cd /opt/cronicle
+curl -L https://github.com/jhuckaby/Cronicle/archive/v1.0.0.tar.gz | tar zxvf - --strip-components 1
+npm install
+node bin/build.js dist
+```
+
+Создание пользователя:
+
+```
+/opt/cronicle/bin/control.sh setup
+```
+
+Запуск сервера:
+
+```
+/opt/cronicle/bin/control.sh start
+```
+
+Проверка работоспособности (получение доступа на стороне клиента - браузера):
+
+```
+http://YOUR_SERVER_HOSTNAME:3012/
+```
