@@ -143,3 +143,5 @@ node bin/build.js dist
 ```
 http://YOUR_SERVER_HOSTNAME:3012/
 ```
+
+Подробнее об установке Cronicle: https://github.com/jhuckaby/Cronicle
