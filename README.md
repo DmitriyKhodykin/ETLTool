@@ -17,6 +17,7 @@
 - Jupyter Lab - инструмент с WEB-интерфейсом для создания и запуска скриптов в режиме ноутбука: https://jupyterlab.readthedocs.io/en/stable/ 
 - Jupyter Hub - многопользовательский сервер для запуска Jupyter Notebooks (в которых аналитики будут непосредственно создавать ETL-скрипты)
 - Papermill - инструмент для запуска кода внутри Jupyter Notebooks вне среды Jupyter Lab (необходим для запуска Notebooks по расписанию из Cronicle)
+- PETL и Pandas - для обработки табличных данных
 - Cronicle - планировщик заданий с WEB-интерфейсом: https://github.com/jhuckaby/Cronicle 
 
 ## Алгоритм установки и настройки OC Ubuntu
@@ -91,6 +92,7 @@ sudo bash nodesource_setup.sh
 
 ```
 sudo apt install nodejs
+
 ```
 
 Проверка установленной версии:
@@ -104,7 +106,7 @@ v14.2.0
 
 Подробнее об установке Node.js: https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04-ru
 
-## Установка Jupyter Lab
+## Установка Jupyter Hub и Jupyter Lab
 
 Для начала установим PIP:
 
@@ -112,44 +114,51 @@ v14.2.0
 sudo apt update
 sudo apt install python3-pip
 ```
-Далее, Jupyter Lab:
-```
-sudo pip3 install jupyterlab
-```
 
-## Установка Jupyter Hub
-
-Для предоставления многопользовательских сценариев работы с ETL-скриптами необходим Jupyter Hub.
-
-Установим Jupyter Hub
+Установим пакет для работы с виртуальными средами:
 
 ```
-sudo python3 -m pip install jupyterhub
-sudo npm install -g configurable-http-proxy
+sudo apt install python3-venv
 ```
 
-Протестируем установку:
+Создадим виртуальную (изолированную) среду разработки:
 
 ```
-jupyterhub -h
+sudo python3 -m venv /opt/jupyterhub/
 ```
 
-Запуск сервиса:
+Далее, будем устанавливать пакеты в созданное виртуальное окружение.
+
+Python wheels для быстрой установки зависимостей:
 
 ```
-jupyterhub
+sudo /opt/jupyterhub/bin/python3 -m pip install wheel
+```
+
+Jupyter Hub и Jupyter Lab:
+
+```
+sudo /opt/jupyterhub/bin/python3 -m pip install jupyterhub jupyterlab
+```
+
+HTML-виджеты:
+
+```
+sudo /opt/jupyterhub/bin/python3 -m pip install ipywidgets
 ```
 
 После запуска Jupyter Hub доступен по адресу http://YOUR_SERVER_HOSTNAME:8000/
 
 Логин и пароль - аналогичны логину и паролю для входа в Linux-систему.
 
-## Установка Papermill
+## Установка Papermill, PETL, Pandas
 
 Установка через PIP:
 
 ```
-sudo python3 -m pip install papermill
+sudo /opt/jupyterhub/bin/python3 -m pip install papermill
+sudo /opt/jupyterhub/bin/python3 -m pip install petl
+sudo /opt/jupyterhub/bin/python3 -m pip install pandas
 ```
 
 ## Установка Cronicle
