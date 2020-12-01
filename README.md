@@ -21,13 +21,13 @@
 - PETL и Pandas - для обработки табличных данных
 - Requests - Python-библиотека для работы с HTTP-запросами
 - Cronicle - планировщик заданий с WEB-интерфейсом
-- MySQL - система управления базами данных
+- PostgreSQL - система управления базами данных
 
 ## Алгоритм установки и настройки OC Ubuntu
 
 Операционная система (ОС) на базе ядра GNU Linux Ubuntu 20.04 LTS может быть развернута на облачном виртуальном сервере, например, предоставляемым провайдером REG.ru. По ссылке представлены возможные конфигурации и стоимость аренды сервера: https://www.reg.ru/vps/cloud/. В рамках подготовки настоящей инструкции использовался сервер Cloud 2a c 2-х ядерным процессором и 1 GB оперативной памяти, который позволяет разворачивать указанную ОС. После аренды сервера вы получите имя пользователя - `root` и пароль для удаленного доступа на указанный при регистрации адрес электронной почты.
 
-Шаг 1 — Вход в систему под именем Root
+Шаг 1 — Вход в систему под именем root
 
 ```
 ssh root@your_server_ip
@@ -160,7 +160,7 @@ cd /opt/jupyterhub/etc/jupyterhub/
 sudo /opt/jupyterhub/bin/jupyterhub --generate-config
 ```
 
-Крайняя процедура создаст конфигурационный файл /opt/jupyterhub/etc/jupyterhub/jupyterhub_config.py
+Крайняя инструкция создаст конфигурационный файл /opt/jupyterhub/etc/jupyterhub/jupyterhub_config.py
 
 ```
 sudo nano /opt/jupyterhub/etc/jupyterhub/jupyterhub_config.py
@@ -196,7 +196,7 @@ ExecStart=/opt/jupyterhub/bin/jupyterhub -f /opt/jupyterhub/etc/jupyterhub/jupyt
 WantedBy=multi-user.target
 ```
 
-configurable-http-proxy:
+Конфигурируемый http-proxy:
 
 ```
 npm install -g configurable-http-proxy
@@ -239,11 +239,66 @@ sudo /opt/conda/envs/python/bin/python -m ipykernel install --prefix=/opt/jupyte
 sudo /opt/conda/envs/python/bin/python -m ipykernel install --prefix /usr/local/ --name 'python' --display-name "Python (default)"
 ```
 
-После запуска Jupyter Hub доступен по адресу http://YOUR_SERVER_HOSTNAME:8000/
+Настройка собственных пользовательских сред conda:
 
-Логин и пароль - аналогичны логину и паролю для входа в Linux-систему.
+Администратору здесь относительно мало что нужно сделать, поскольку пользователям придется настраивать свои собственные среды с помощью оболочки. При входе в систему они должны запустить `conda init` или `/opt/conda/bin/conda`. Затем они могут использовать conda для настройки своей среды, хотя они также должны установить ipykernel. После этого они могут включить свое ядро, используя:
 
-Подробнее об установке Jupyter Hub и Jupyter Lab https://jupyterhub.readthedocs.io/en/stable/installation-guide-hard.html
+```
+/path/to/kernel/env/bin/python -m ipykernel install --name 'python-my-env' --display-name "Python My Env"
+```
+
+Подробнее об установке Jupyter Hub + Jupyter Lab + Conda https://jupyterhub.readthedocs.io/en/stable/installation-guide-hard.html
+
+## Настройка обратного прокси для входа в Jupyter Hub
+
+На данный момент текущее руководство приводит к тому, что JupyterHub работает на порту 8000. Обычно не рекомендуется запускать открытые веб-службы таким способом - вместо этого используйте обратный прокси, работающий на стандартных портах HTTP / HTTPS.
+
+Важно: помните о последствиях для безопасности, особенно если вы используете сервер, доступный из открытого Интернета, то есть не защищенный в рамках внутренней интрасети учреждения или частной домашней / офисной сети. Вам следует настроить брандмауэр. Брандмауэр будет настроен с использованием ufw.
+
+### Использование Nginx
+
+Здесь мы опишем шаги, необходимые для настройки Jupyter Hub с Nginx и размещения его по заданному URL-адресу, например. <your-server-ip-or-url> / jupyter
+	
+```
+sudo apt install nginx
+sudo nano /etc/nginx/sites-available/default
+```
+
+Внутри конфигурационного файла добавим блок:
+
+```
+  location /lab/ {
+    # NOTE important to also set base url of jupyterhub to /lab in its config
+    proxy_pass http://127.0.0.1:8000;
+
+    proxy_redirect   off;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    # websocket headers
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $connection_upgrade;
+
+  }
+```
+
+Также добавим этот фрагмент перед блоком `server`
+
+```
+map $http_upgrade $connection_upgrade {
+        default upgrade;
+        '' close;
+    }
+```
+
+Проверка конфигурации:
+
+```
+sudo nginx -t
+sudo systemctl restart nginx.service
+```
 
 ## Установка Papermill, PETL, Pandas, Requests
 
