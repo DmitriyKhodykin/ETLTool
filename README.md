@@ -247,7 +247,14 @@ sudo /opt/conda/envs/python/bin/python -m ipykernel install --prefix /usr/local/
 /path/to/kernel/env/bin/python -m ipykernel install --name 'python-my-env' --display-name "Python My Env"
 ```
 
+Рестарт сервиса:
+
+```
+sudo systemctl restart jupyterhub.service
+```
+
 Подробнее об установке Jupyter Hub + Jupyter Lab + Conda https://jupyterhub.readthedocs.io/en/stable/installation-guide-hard.html
+
 
 ## Настройка обратного прокси для входа в Jupyter Hub
 
