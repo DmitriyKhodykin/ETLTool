@@ -255,65 +255,6 @@ sudo systemctl restart jupyterhub.service
 
 Подробнее об установке Jupyter Hub + Jupyter Lab + Conda https://jupyterhub.readthedocs.io/en/stable/installation-guide-hard.html
 
-
-## Настройка обратного прокси для входа в Jupyter Hub
-
-На данный момент текущее руководство приводит к тому, что JupyterHub работает на порту 8000. Обычно не рекомендуется запускать открытые веб-службы таким способом - вместо этого используйте обратный прокси, работающий на стандартных портах HTTP / HTTPS.
-
-Важно: помните о последствиях для безопасности, особенно если вы используете сервер, доступный из открытого Интернета, то есть не защищенный в рамках внутренней интрасети учреждения или частной домашней / офисной сети. Вам следует настроить брандмауэр. Брандмауэр будет настроен с использованием ufw.
-
-### Использование Nginx
-
-Здесь мы опишем шаги, необходимые для настройки Jupyter Hub с Nginx и размещения его по заданному URL-адресу, например. <your-server-ip-or-url> / jupyter
-	
-```
-sudo apt install nginx
-sudo nano /etc/nginx/sites-available/default
-```
-
-Внутри конфигурационного файла добавим блок:
-
-```
-  location /lab/ {
-    # NOTE important to also set base url of jupyterhub to /lab in its config
-    proxy_pass http://127.0.0.1:8000;
-
-    proxy_redirect   off;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header Host $host;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-
-    # websocket headers
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection $connection_upgrade;
-
-  }
-```
-
-Также добавим этот фрагмент перед блоком `server`
-
-```
-map $http_upgrade $connection_upgrade {
-        default upgrade;
-        '' close;
-    }
-```
-
-Проверка конфигурации:
-
-```
-sudo nginx -t
-sudo systemctl restart nginx.service
-```
-
-Добавим разрешение для Nginx в ufw
-
-```
-sudo ufw allow 'Nginx HTTP'
-sudo ufw status
-```
-
 ## Установка Papermill, PETL, Pandas, Requests
 
 Установка через PIP:
@@ -440,7 +381,7 @@ map $http_upgrade $connection_upgrade {
 server {
 	listen 80;
 	index index.php index.html;
-	server_name petl.efko.ru
+	server_name etl.ru
 	error_log  /var/log/nginx/error.log;
 	access_log /var/log/nginx/access.log;
 	root /var/www/html;
@@ -464,10 +405,18 @@ server {
 }
 ```
 
-Перезагрузка сервиса:
+Проверка конфигурации и перезагрузка:
 
 ```
-service nginx restart
+sudo nginx -t
+sudo systemctl restart nginx.service
+```
+
+Добавим разрешение для Nginx в ufw
+
+```
+sudo ufw allow 'Nginx HTTP'
+sudo ufw status
 ```
 
 Создаём HTML шаблон главной страницы:
