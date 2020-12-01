@@ -428,7 +428,7 @@ sudo nano /var/www/html/index.html
 
 Пишем содержимое которое вам необходимо.
 
-## Установка PosgreSQL
+## Установка PostgreSQL
 
 Устанавливаем:
 
@@ -445,7 +445,7 @@ sudo nano /etc/postgresql/12/main/postgresql.conf
 Строка `listen_addresses`:
 
 ```
-listen+addresses = '*'
+listen_addresses = '*'
 ```
 
 Далее редактируем конфиг:
@@ -477,7 +477,7 @@ sudo -u postgres bash -c "psql -c \"CREATE USER ${USERNAME} WITH PASSWORD '${PAS
 ```
 
 Создание новой БД:
-**${BD_NAME}** заменить на своё
+**${DB_NAME}** заменить на своё
 
 ```
 sudo -u postgres bash -c "psql -c \"CREATE DATABASE ${DB_NAME};\""
