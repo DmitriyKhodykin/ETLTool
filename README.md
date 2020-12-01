@@ -491,3 +491,5 @@ sudo -u postgres bash -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${DB_NAME} 
 ```
 
 [Карткое руководство на DO](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart-ru)
+
+### Установка pgAdmin
