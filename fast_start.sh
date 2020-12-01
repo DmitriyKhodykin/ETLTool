@@ -30,6 +30,7 @@ sudo apt update
 sudo apt install -y conda
 sudo ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
 sudo mkdir /opt/conda/envs/
+source ~/.bashrc
 sudo /opt/conda/bin/conda create --prefix /opt/conda/envs/python python=3.8 ipykernel
 sudo /opt/conda/envs/python/bin/python -m ipykernel install --prefix /usr/local/ --name 'python' --display-name "Python (default)"
 
