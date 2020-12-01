@@ -300,6 +300,13 @@ sudo nginx -t
 sudo systemctl restart nginx.service
 ```
 
+Добавим разрешение для Nginx в ufw
+
+```
+sudo ufw allow 'Nginx HTTP'
+sudo ufw status
+```
+
 ## Установка Papermill, PETL, Pandas, Requests
 
 Установка через PIP:
