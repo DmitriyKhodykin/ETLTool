@@ -260,7 +260,7 @@ sudo systemctl restart jupyterhub.service
 
 Подробнее об установке Jupyter Hub + Jupyter Lab + Conda https://jupyterhub.readthedocs.io/en/stable/installation-guide-hard.html
 
-## Установка Papermill, PETL, Pandas, Requests
+## PETL, Pandas
 
 Установка через PIP:
 

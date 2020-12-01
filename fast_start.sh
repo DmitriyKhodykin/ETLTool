@@ -7,6 +7,7 @@ sudo apt install -y nodejs
 
 # JupyterHub + JupyterLab
 sudo apt install -y python3-pip
+sudo python3 -m pip install papermill
 sudo apt install -y python3-venv
 sudo python3 -m venv /opt/jupyterhub/
 sudo /opt/jupyterhub/bin/python3 -m pip install wheel
@@ -20,10 +21,22 @@ npm install -g configurable-http-proxy
 sudo ln -s /opt/jupyterhub/etc/systemd/jupyterhub.service /etc/systemd/system/jupyterhub.service
 sudo systemctl daemon-reload
 sudo systemctl enable jupyterhub.service
+
+# Установка conda
+curl https://repo.anaconda.com/pkgs/misc/gpgkeys/anaconda.asc | gpg --dearmor > conda.gpg
+sudo install -o root -g root -m 644 conda.gpg /etc/apt/trusted.gpg.d/
+echo "deb [arch=amd64] https://repo.anaconda.com/pkgs/misc/debrepo/conda stable main" | sudo tee /etc/apt/sources.list.d/conda.list
+sudo apt update
+sudo apt install conda
+sudo ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+sudo mkdir /opt/conda/envs/
+sudo /opt/conda/bin/conda create --prefix /opt/conda/envs/python python=3.8 ipykernel
+sudo /opt/conda/envs/python/bin/python -m ipykernel install --prefix /usr/local/ --name 'python' --display-name "Python (default)"
+
+# Запуск Jupyter
 sudo systemctl start jupyterhub.service
 
-# Papermill, pandas, requests, petl
-sudo /opt/jupyterhub/bin/python3 -m pip install papermill
+# PETL, Pandas
 sudo /opt/jupyterhub/bin/python3 -m pip install petl
 sudo /opt/jupyterhub/bin/python3 -m pip install pandas
 
