@@ -123,7 +123,7 @@ sudo apt install python3-pip
 Инструмент для запуска ноутбуков установим глобально в системе:
 
 ```
-python3 -m pip install papermill
+sudo python3 -m pip install papermill
 ```
 
 Установим пакет для работы с виртуальными средами:
