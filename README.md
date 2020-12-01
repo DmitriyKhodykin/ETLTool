@@ -170,6 +170,7 @@ sudo nano /opt/jupyterhub/etc/jupyterhub/jupyterhub_config.py
 
 ```
 c.Spawner.default_url = '/lab'
+c.JupyterHub.bind_url = 'http://localhost:8000/lab'
 ```
 
 ### Настройка Jupyter Hub как сервиса
@@ -290,10 +291,42 @@ node bin/build.js dist
 /opt/cronicle/bin/control.sh setup
 ```
 
-Запуск сервера:
+Запуск сервера (желательно воспользоваться следующим шагом):
 
 ```
 /opt/cronicle/bin/control.sh start
+```
+
+Для автоматической загрузки вместе с системой:
+
+```
+sudo nano /etc/systemd/system/cronicle.service
+```
+
+Внутри файла конфигурации:
+
+```
+[Unit]
+Description=Cronicle
+After=syslog.target network.target
+
+[Service]
+Type=forking
+User=root
+PIDFile=/opt/cronicle/logs/cronicled.pid
+ExecStart=/opt/cronicle/bin/control.sh start
+ExecStop=/opt/cronicle/bin/control.sh stop
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Запустим сервис:
+
+```
+systemctl daemon-reload
+systemctl enable cronicle.service
+systemctl start cronicle.service
 ```
 
 Проверка работоспособности (получение доступа на стороне клиента - браузера):
@@ -303,3 +336,75 @@ http://YOUR_SERVER_HOSTNAME:3012/
 ```
 
 Подробнее об установке Cronicle: https://github.com/jhuckaby/Cronicle
+
+## Установка nginx
+
+Устанавливаем:
+
+```
+sudo apt install -y nginx
+```
+
+Удаляем конфиг сайтов:
+
+```
+rm /etc/nginx/sites-enabled/default
+```
+
+Создаём конфиг по умолчанию:
+
+```
+sudo nano /etc/nginx/conf.d/default.conf
+```
+
+В сам конфиг:
+
+```
+# top-level http config for websocket headers
+# If Upgrade is defined, Connection = upgrade
+# If Upgrade is empty, Connection = close
+map $http_upgrade $connection_upgrade {
+	default upgrade;
+	''      close;
+}
+
+server {
+	listen 80;
+	index index.php index.html;
+	server_name petl.efko.ru
+	error_log  /var/log/nginx/error.log;
+	access_log /var/log/nginx/access.log;
+	root /var/www/html;
+
+	location /lab {
+		proxy_pass http://127.0.0.1:8000;
+		proxy_redirect   off;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header Host $host;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		# websocket headers
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection $connection_upgrade;
+	}
+	
+	location ~ /.well-known {
+		allow all;
+	}
+
+}
+```
+
+Перезагрузка сервиса:
+
+```
+service nginx restart
+```
+
+Создаём HTML шаблон главной страницы:
+
+```
+sudo nano /var/www/html/index.html
+```
+
+Пишем содержимое которое вам необходимо.
