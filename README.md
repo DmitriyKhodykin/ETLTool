@@ -385,7 +385,7 @@ map $http_upgrade $connection_upgrade {
 server {
 	listen 80;
 	index index.php index.html;
-	server_name etl.ru
+	server_name petl.efko.ru
 	error_log  /var/log/nginx/error.log;
 	access_log /var/log/nginx/access.log;
 	root /var/www/html;
@@ -406,6 +406,12 @@ server {
 		allow all;
 	}
 
+	error_page 404 /404.html;
+    location = /404.html {
+        root /var/www/html;
+        internal;
+    }
+
 }
 ```
 
@@ -423,10 +429,11 @@ sudo ufw allow 'Nginx HTTP'
 sudo ufw status
 ```
 
-Создаём HTML шаблон главной страницы:
+Создаём HTML шаблон главной страницы и 404:
 
 ```
 sudo nano /var/www/html/index.html
+sudo nano /var/www/html/404.html
 ```
 
 Пишем содержимое которое вам необходимо.
