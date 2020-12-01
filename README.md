@@ -241,15 +241,13 @@ sudo ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
 ```
 sudo mkdir /opt/conda/envs/
 sudo /opt/conda/bin/conda create --prefix /opt/conda/envs/python python=3.8 ipykernel
-sudo /opt/conda/envs/python/bin/python -m ipykernel install --prefix /usr/local/ --name 'python' --display-name "Python (default)"
+sudo /opt/conda/envs/python/bin/python -m ipykernel install --prefix=/opt/jupyterhub/ --name 'python' --display-name "Python (default)"
 ```
 
 Настройка собственных пользовательских сред conda:
 
-Администратору здесь относительно мало что нужно сделать, поскольку пользователям придется настраивать свои собственные среды с помощью оболочки. При входе в систему они должны запустить `conda init`. Затем они могут использовать conda для настройки своей среды, хотя они также должны установить ipykernel. После этого они могут включить свое ядро, используя:
-
 ```
-conda init -m ipykernel install --name 'python-my-env' --display-name "Python My Env"
+/opt/jupyterhub/bin/python -m ipykernel install --name 'python-my-env' --display-name "Python My Env"
 ```
 
 Рестарт сервиса:
