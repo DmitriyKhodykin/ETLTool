@@ -16,6 +16,7 @@
 - ОС - Ubuntu 20.04 на виртуальном сервере
 - Jupyter Lab - инструмент с WEB-интерфейсом для создания и запуска скриптов в режиме ноутбука
 - Jupyter Hub - многопользовательский сервер для запуска Jupyter Notebooks (в которых аналитики будут непосредственно создавать ETL-скрипты)
+- Conda - менеджер виртуальных окружений для запуска Python-кода
 - Papermill - инструмент для запуска кода внутри Jupyter Notebooks вне среды Jupyter Lab (необходим для запуска Notebooks по расписанию из Cronicle)
 - PETL и Pandas - для обработки табличных данных
 - Requests - Python-библиотека для работы с HTTP-запросами
@@ -208,6 +209,33 @@ sudo systemctl daemon-reload
 sudo systemctl enable jupyterhub.service
 sudo systemctl start jupyterhub.service
 sudo systemctl status jupyterhub.service
+```
+
+### Установка и настройка Conda
+
+Мы будем использовать conda для управления виртуальными средами Python.
+
+```
+curl https://repo.anaconda.com/pkgs/misc/gpgkeys/anaconda.asc | gpg --dearmor > conda.gpg
+sudo install -o root -g root -m 644 conda.gpg /etc/apt/trusted.gpg.d/
+echo "deb [arch=amd64] https://repo.anaconda.com/pkgs/misc/debrepo/conda stable main" | sudo tee /etc/apt/sources.list.d/conda.list
+sudo apt update
+sudo apt install conda
+```
+
+Наконец, мы можем сделать conda более доступной для пользователей, установив символическую ссылку на сценарий установки оболочки conda в папку «drop in» профиля, чтобы он запускался при входе в систему.
+
+```
+sudo ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+```
+
+Установим conda по-умолчанию для пользователей:
+
+```
+sudo mkdir /opt/conda/envs/
+sudo /opt/conda/bin/conda create --prefix /opt/conda/envs/python python=3.8 ipykernel
+sudo /opt/conda/envs/python/bin/python -m ipykernel install --prefix=/opt/jupyterhub/ --name 'python' --display-name "Python (default)"
+sudo /opt/conda/envs/python/bin/python -m ipykernel install --prefix /usr/local/ --name 'python' --display-name "Python (default)"
 ```
 
 После запуска Jupyter Hub доступен по адресу http://YOUR_SERVER_HOSTNAME:8000/
