@@ -262,10 +262,42 @@ node bin/build.js dist
 /opt/cronicle/bin/control.sh setup
 ```
 
-Запуск сервера:
+Запуск сервера (желательно воспользоваться следующим шагом):
 
 ```
 /opt/cronicle/bin/control.sh start
+```
+
+Для автоматической загрузки вместе с системой:
+
+```
+sudo nano //etc/systemd/system/cronicle.service
+```
+
+Внутри файла конфигурации:
+
+```
+[Unit]
+Description=Cronicle
+After=syslog.target network.target
+
+[Service]
+Type=forking
+User=root
+PIDFile=/opt/cronicle/logs/cronicled.pid
+ExecStart=/opt/cronicle/bin/control.sh start
+ExecStop=/opt/cronicle/bin/control.sh stop
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Запустим сервис:
+
+```
+systemctl daemon-reload
+systemctl enable cronicle.service
+systemctl start cronicle.service
 ```
 
 Проверка работоспособности (получение доступа на стороне клиента - браузера):
