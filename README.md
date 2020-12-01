@@ -244,7 +244,7 @@ sudo /opt/conda/bin/conda create --prefix /opt/conda/envs/python python=3.8 ipyk
 sudo /opt/conda/envs/python/bin/python -m ipykernel install --prefix=/opt/jupyterhub/ --name 'python' --display-name "Python (default)"
 ```
 
-Настройка собственных пользовательских сред conda:
+Настройка собственных пользовательских сред conda (уточнить):
 
 ```
 /opt/jupyterhub/bin/python -m ipykernel install --name 'python-my-env' --display-name "Python My Env"
@@ -258,7 +258,7 @@ sudo systemctl restart jupyterhub.service
 
 Подробнее об установке Jupyter Hub + Jupyter Lab + Conda https://jupyterhub.readthedocs.io/en/stable/installation-guide-hard.html
 
-## Установка Papermill, PETL, Pandas, Requests
+## Установка PETL, Pandas
 
 Установка через PIP:
 
