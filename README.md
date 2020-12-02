@@ -482,6 +482,7 @@ host    all             all             ::/0                    md5
 Открываем порт в ufw:
 
 ```
+sudo ufw allow postgresql/tcp
 sudo ufw allow 5432/tcp
 ```
 
