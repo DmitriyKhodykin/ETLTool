@@ -494,3 +494,8 @@ sudo -u postgres bash -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${DB_NAME} 
 ```
 
 [Краткое руководство на DO](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart-ru)
+
+### Работа с таблицами
+
+Для более удобной работы с таблицами можно использовать [Azure Data Studio](https://docs.microsoft.com/ru-ru/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15):
+![Скриншот окна ADS](https://i.imgur.com/nk2vLFF.png)
