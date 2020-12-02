@@ -470,6 +470,7 @@ service postgresql restart
 ### Работа с PostgreSQL
 
 Создание нового пользователя:
+
 **${USERNAME}** и **${PASSWORD}** заменить на свои
 
 ```
@@ -477,6 +478,7 @@ sudo -u postgres bash -c "psql -c \"CREATE USER ${USERNAME} WITH PASSWORD '${PAS
 ```
 
 Создание новой БД:
+
 **${DB_NAME}** заменить на своё
 
 ```
@@ -484,12 +486,11 @@ sudo -u postgres bash -c "psql -c \"CREATE DATABASE ${DB_NAME};\""
 ```
 
 Назначение прав пользователю БД:
+
 **${DB_NAME}** и **${USERNAME}** заменить на свои (которые созданны выше)
 
 ```
 sudo -u postgres bash -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${DB_NAME} TO ${USERNAME};\""
 ```
 
-[Карткое руководство на DO](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart-ru)
-
-### Установка pgAdmin
+[Краткое руководство на DO](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart-ru)
