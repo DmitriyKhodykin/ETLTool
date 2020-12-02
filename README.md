@@ -66,6 +66,18 @@ OpenSSH                    ALLOW       Anywhere
 OpenSSH (v6)               ALLOW       Anywhere (v6)
 ```
 
+Разрешим подключения по SSH (чтобы себя не выбить из терминала):
+
+```
+sudo ufw allow ssh
+```
+
+Включаем ufw:
+
+```
+sudo ufw enable
+```
+
 Шаг 5 — Предоставление внешнего доступа для обычного пользователя
 
 ```
@@ -332,6 +344,12 @@ ExecStop=/opt/cronicle/bin/control.sh stop
 WantedBy=multi-user.target
 ```
 
+Откроем порт ufw:
+
+```
+sudo ufw allow 3012/tcp
+```
+
 Запустим сервис:
 
 ```
@@ -459,6 +477,12 @@ sudo nano /etc/postgresql/12/main/pg_hba.conf
 ```
 host    all             all             0.0.0.0/0               md5
 host    all             all             ::/0                    md5
+```
+
+Открываем порт в ufw:
+
+```
+sudo ufw allow 5432/tcp
 ```
 
 Перезагружаем:
