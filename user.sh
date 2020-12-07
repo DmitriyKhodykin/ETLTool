@@ -39,9 +39,7 @@ case "$ACTION_NAME" in
         read -p "Enter username : " username
         read -s -p "Enter new password : " password
         echo -e "${password}\n${password}" | passwd ${username}
-        service cronicle stop
-		node /opt/cronicle/bin/useradd.js $username $password
-		service cronicle start
+        sudo -u postgres bash -c "psql -c \"ALTER USER ${username} WITH ENCRYPTED PASSWORD '${password}';\""
     ;;
     *)
         echo "Select current action"
