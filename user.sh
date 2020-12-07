@@ -34,7 +34,6 @@ case "$ACTION_NAME" in
         service cronicle stop
 		node /opt/cronicle/bin/storage-cli.js admin admin "$password"
 		service cronicle start
-		;;
     ;;
     *)
         echo "Select current action"
