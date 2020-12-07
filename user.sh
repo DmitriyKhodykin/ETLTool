@@ -31,6 +31,10 @@ case "$ACTION_NAME" in
     ;;
     -a|--admin)
         read -s -p "Enter Cronicle admin password : " password
+        service cronicle stop
+		node /opt/cronicle/bin/storage-cli.js admin admin "$password"
+		service cronicle start
+		;;
     ;;
     *)
         echo "Select current action"

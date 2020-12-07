@@ -66,12 +66,12 @@ sudo ufw allow 5432/tcp
 service postgresql restart
 
 cat << EOF
-Установка успешно завершена!
 
-Установлены:
-Компоненты теперь все доступны для работы.
+Installation complete!
 
-Для создания нового пользователя воспользуйтесь файлом user.sh с ключем -u
+To add new user please run user.sh -u
+
+Please change admin cronicle password, run user.sh -a
 
 EOF
 
