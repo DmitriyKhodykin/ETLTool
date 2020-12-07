@@ -40,6 +40,7 @@ case "$ACTION_NAME" in
         read -s -p "Enter new password : " password
         echo -e "${password}\n${password}" | passwd ${username}
         sudo -u postgres bash -c "psql -c \"ALTER USER ${username} WITH ENCRYPTED PASSWORD '${password}';\""
+        echo "Password changed, but don't forget change it in Cronicle manually."
     ;;
     *)
         echo "Select current action"
