@@ -7,7 +7,7 @@ sudo apt install -y nodejs
 
 # JupyterHub + JupyterLab
 sudo apt install -y python3-pip
-sudo python3 -m pip install -y papermill
+sudo python3 -m pip install papermill
 sudo apt install -y python3-venv
 sudo python3 -m venv /opt/jupyterhub/
 sudo /opt/jupyterhub/bin/python3 -m pip install wheel jupyterhub jupyterlab ipywidgets
