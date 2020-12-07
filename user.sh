@@ -40,7 +40,7 @@ case "$ACTION_NAME" in
         read -s -p "Enter new password : " password
         echo -e "${password}\n${password}" | passwd ${username}
         service cronicle stop
-		node /opt/cronicle/bin/storage-cli.js ${username} standart "$password"
+		node /opt/cronicle/bin/useradd.js $username $password
 		service cronicle start
     ;;
     *)
