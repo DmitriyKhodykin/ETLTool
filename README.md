@@ -548,7 +548,7 @@ wget -O /opt/cronicle/bin/useradd.js https://raw.githubusercontent.com/DmitriyKh
 Далее скачиваем файл по управлению пользователями в нужную вам дерикторию
 
 ```
-wget -q https://raw.githubusercontent.com/DmitriyKhodykin/ETLTool/develop/user.sh
+wget -q https://raw.githubusercontent.com/DmitriyKhodykin/ETLTool/main/user.sh
 ```
 
 Делаем его исполняемым
