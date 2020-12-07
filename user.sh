@@ -23,6 +23,9 @@ case "$ACTION_NAME" in
             service cronicle stop
 			node /opt/cronicle/bin/useradd.js $username $password
 			service cronicle start
+            sudo -u postgres bash -c "psql -c \"CREATE USER ${username} WITH ENCRYPTED PASSWORD '${password}';\""
+		    sudo -u postgres bash -c "psql -c \"CREATE DATABASE ${username};\""
+		    sudo -u postgres bash -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${username} TO ${username};\""
             [ $? -eq 0 ] && echo "User has been added to system!" || echo "Failed to add a user!"
         fi
     ;;
