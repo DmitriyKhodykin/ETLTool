@@ -43,6 +43,8 @@ case "$ACTION_NAME" in
     ;;
     *)
         echo "Select current action"
+        echo "-a Change cronicle admin password"
+        echo "-c Change user password for Jupyter and Postgre (not for Cronicle)"
         echo "-u Add user account"
     ;;
 esac
