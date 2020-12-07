@@ -19,8 +19,8 @@ case "$ACTION_NAME" in
             pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
             useradd -m -p "$pass" "$username"
             usermod -aG sudo "$username"
-            # cp -r tutorials "/home/$username" # копировать уроки
             sudo chown -R "$username" "/home/$username"
+            
             [ $? -eq 0 ] && echo "User has been added to system!" || echo "Failed to add a user!"
         fi
     ;;
@@ -29,11 +29,6 @@ case "$ACTION_NAME" in
     ;;
     *)
         echo "Select current action"
-        echo "-h Configure hostname/domain"
-        echo "-s Configure S3FS credentials (S3 bucket mount)"
         echo "-u Add user account"
-        echo "-a Configure Cronicle admin password"
-        echo "-p Configure PostgreSQL password for default user ('etl')"
-        echo "-ssl Enable or disable HTTPS"
     ;;
 esac
