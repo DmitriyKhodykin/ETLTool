@@ -21,7 +21,7 @@ case "$ACTION_NAME" in
             usermod -aG sudo "$username"
             sudo chown -R "$username" "/home/$username"
             service cronicle stop
-			node /opt/cronicle/bin/cronicle_useradd.js $username $password
+			node /opt/cronicle/bin/useradd.js $username $password
 			service cronicle start
             [ $? -eq 0 ] && echo "User has been added to system!" || echo "Failed to add a user!"
         fi

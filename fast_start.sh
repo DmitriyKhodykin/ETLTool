@@ -40,6 +40,7 @@ sudo /opt/jupyterhub/bin/python3 -m pip install petl pandas
 curl -s https://raw.githubusercontent.com/jhuckaby/Cronicle/master/bin/install.js | node
 /opt/cronicle/bin/control.sh setup
 cp systemd/cronicle.service /etc/systemd/system/cronicle.service
+cp cronicle/useradd.js /opt/cronicle/bin/
 systemctl daemon-reload
 systemctl enable cronicle.service
 systemctl start cronicle.service
