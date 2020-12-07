@@ -35,6 +35,14 @@ case "$ACTION_NAME" in
 		node /opt/cronicle/bin/storage-cli.js admin admin "$password"
 		service cronicle start
     ;;
+    -c|--change)
+        read -p "Enter username : " username
+        read -s -p "Enter new password : " password
+        echo -e "${password}\n${password}" | passwd ${username}
+        service cronicle stop
+		node /opt/cronicle/bin/storage-cli.js ${username} standart "$password"
+		service cronicle start
+    ;;
     *)
         echo "Select current action"
         echo "-u Add user account"
