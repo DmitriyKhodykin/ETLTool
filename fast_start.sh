@@ -65,4 +65,14 @@ sudo ufw allow postgresql/tcp
 sudo ufw allow 5432/tcp
 service postgresql restart
 
+cat << EOF
+Установка успешно завершена!
+
+Установлены:
+Компоненты теперь все доступны для работы.
+
+Для создания нового пользователя воспользуйтесь файлом user.sh с ключем -u
+
+EOF
+
 
