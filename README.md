@@ -536,3 +536,29 @@ grant all privileges on database ${DB_NAME} to ${USERNAME};
 
 Для более удобной работы с таблицами можно использовать [Azure Data Studio](https://docs.microsoft.com/ru-ru/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15):
 ![Скриншот окна ADS](https://i.imgur.com/nk2vLFF.png)
+
+## Скрипт по управлению пользователями
+
+Скачать файл для управления пользователями
+
+```
+wget -O /opt/cronicle/bin/useradd.js https://raw.githubusercontent.com/DmitriyKhodykin/ETLTool/main/cronicle/useradd.js
+```
+
+Далее скачиваем файл по управлению пользователями в нужную вам дерикторию
+
+```
+wget -q https://raw.githubusercontent.com/DmitriyKhodykin/ETLTool/main/user.sh
+```
+
+Делаем его исполняемым
+
+```
+sudo chmod +x user.sh
+```
+
+И можно пользоваться
+
+```
+sudo ./user.sh
+```
