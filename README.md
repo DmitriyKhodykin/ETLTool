@@ -537,6 +537,32 @@ grant all privileges on database ${DB_NAME} to ${USERNAME};
 Для более удобной работы с таблицами можно использовать [Azure Data Studio](https://docs.microsoft.com/ru-ru/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver15):
 ![Скриншот окна ADS](https://i.imgur.com/nk2vLFF.png)
 
+### Подключение Power BI
+
+Для подключение Power BI к PostgreSQL необходимо отключить ssl в конфиге PostgreSQL.
+
+Открываем конфиг:
+
+```
+sudo nano /etc/postgresql/12/main/postgresql.conf
+```
+
+И отключаем ssl и комментируем пути к сертификатам:
+
+```
+ssl = off
+#ssl_ciphers = 'HIGH:MEDIUM:+3DES:!aNULL' # allowed SSL ciphers
+#ssl_prefer_server_ciphers = on
+#ssl_ecdh_curve = 'prime256v1'
+#ssl_dh_params_file = ''
+#ssl_cert_file = '/etc/ssl/certs/ssl-cert-snakeoil.pem'
+#ssl_key_file = '/etc/ssl/private/ssl-cert-snakeoil.key'
+#ssl_ca_file = ''
+#ssl_crl_file = ''
+```
+
+На текущий момент для работы по ssl необходимо собирать PostgreSQL с ключем `--with-openssl` [согласно документации п.18.9 (первый абзац, отсылка к п.16)](https://www.postgresql.org/docs/12/ssl-tcp.html)
+
 ## Скрипт по управлению пользователями
 
 Скачать файл для управления пользователями
