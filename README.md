@@ -570,6 +570,7 @@ ssl = off
 service postgresql restart
 ```
 
+
 **2. Установка драйвера [psqlODBC](https://www.postgresql.org/ftp/odbc/versions/msi/)**
 
 ------------
@@ -582,7 +583,14 @@ local   replication     all                                     peer
 hostssl all             all             0.0.0.0/0               md5
 ```
 
+Перезапускаем сервис:
+
+```
+service postgresql restart
+```
+
 Далее в настройка соединения в ODBC выбрать PostgreSQL Unicode и SSL Mode require.
+
 
 **3. Самый правильный и максимально безопасный способ - установка сертификата клиенту.**
 
