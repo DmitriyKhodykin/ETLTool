@@ -539,8 +539,11 @@ grant all privileges on database ${DB_NAME} to ${USERNAME};
 
 ### Подключение Power BI
 
-Для подключение Power BI к PostgreSQL необходимо отключить ssl в конфиге PostgreSQL.
+Есть 3 варианта подключения:
 
+**1. Без установки доп.программ или корневых сертификтаов (в случае если например много машин и без прав админа сделать нельзя.**
+
+------------
 Открываем конфиг:
 
 ```
@@ -561,7 +564,30 @@ ssl = off
 #ssl_crl_file = ''
 ```
 
-На текущий момент для работы по ssl необходимо собирать PostgreSQL с ключем `--with-openssl` [согласно документации п.18.9 (первый абзац, отсылка к п.16)](https://www.postgresql.org/docs/12/ssl-tcp.html)
+Перезапускаем сервис:
+
+```
+service postgresql restart
+```
+
+**2. Установка драйвера [psqlODBC](https://www.postgresql.org/ftp/odbc/versions/msi/)**
+
+------------
+В файле `pg_hba.conf` оставляем только локальную политику и hostssl
+
+```
+local   all             postgres                                peer
+local   all             all                                     peer
+local   replication     all                                     peer
+hostssl all             all             0.0.0.0/0               md5
+```
+
+Далее в настройка соединения в ODBC выбрать PostgreSQL Unicode и SSL Mode require.
+
+**3. Самый правильный и максимально безопасный способ - установка сертификата клиенту.**
+
+------------
+...
 
 ## Скрипт по управлению пользователями
 
