@@ -24,7 +24,8 @@
 
 ## Алгоритм установки и настройки OC Ubuntu
 
-Операционная система (ОС) на базе ядра GNU Linux Ubuntu 20.04 LTS может быть развернута на облачном виртуальном сервере, например, предоставляемым провайдером REG.ru. По ссылке представлены возможные конфигурации и стоимость аренды сервера: https://www.reg.ru/vps/cloud/. В рамках подготовки настоящей инструкции использовался сервер Cloud 2a c 2-х ядерным процессором и 1 GB оперативной памяти, который позволяет разворачивать указанную ОС. После аренды сервера вы получите имя пользователя - `root` и пароль для удаленного доступа на указанный при регистрации адрес электронной почты.
+Операционная система (ОС) на базе ядра GNU Linux Ubuntu 20.04 LTS может быть развернута на облачном виртуальном сервере, например, предоставляемым провайдером [REG.ru](https://reg.ru). По ссылке представлены возможные конфигурации и [стоимость аренды сервера](https://www.reg.ru/vps/cloud/). 
+В рамках подготовки настоящей инструкции использовался сервер Cloud 2a c 2-х ядерным процессором и 1 GB оперативной памяти, который позволяет разворачивать указанную ОС. После аренды сервера вы получите имя пользователя - `root` и пароль для удаленного доступа на указанный при регистрации адрес электронной почты.
 
 Шаг 1 — Вход в систему под именем root
 
@@ -46,36 +47,32 @@ usermod -aG sudo sammy
 
 Шаг 4 — Установка простого брандмауэра (UFW)
 
-```
-# ufw app list
-
-Output
-Available applications:
-OpenSSH
-
-# ufw allow OpenSSH
-# ufw enable
-# ufw status
-
-Output
-Status: active
-
-To                         Action      From
---                         ------      ----
-OpenSSH                    ALLOW       Anywhere
-OpenSSH (v6)               ALLOW       Anywhere (v6)
-```
-
 Разрешим подключения по SSH (чтобы себя не выбить из терминала):
 
 ```
 sudo ufw allow ssh
+sudo ufw allow openssh
 ```
 
 Включаем ufw:
 
 ```
 sudo ufw enable
+```
+Смотрим статус
+```
+ufw status
+```
+
+```
+Status: active
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW       Anywhere
+OpenSSH                    ALLOW       Anywhere
+22/tcp (v6)                ALLOW       Anywhere (v6)
+OpenSSH (v6)               ALLOW       Anywhere (v6)
 ```
 
 Шаг 5 — Предоставление внешнего доступа для обычного пользователя
@@ -84,15 +81,15 @@ sudo ufw enable
 ssh sammy@your_server_ip
 ```
 
-Подробнее о начальной настройке сервера: https://www.digitalocean.com/community/tutorials/ubuntu-18-04-ru
+[Подробнее о начальной настройке сервера на Digital Ocean](https://www.digitalocean.com/community/tutorials/ubuntu-18-04-ru)
 
 ## Установка Node.js
 
 Для последующих инстансов потребуется Node.js - среда для запуска Java Script.
 
-Будем устанавливать крайнюю актуальную версию LTS. Уточнить эту версию можно по ссылке: https://nodejs.org/en/about/releases/
+Будем устанавливать крайнюю актуальную версию LTS. Уточнить эту версию можно по [ссылке](https://nodejs.org/en/about/releases/).
 
-Крайней считается версия перед `Current`
+Крайней считается версия перед `Current`, в таблице версия `Active LTS`.
 
 Добавление репозитория:
 
@@ -120,7 +117,7 @@ Output
 v14.2.0
 ```
 
-Подробнее об установке Node.js: https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04-ru
+[Подробнее об установке Node.js на Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04-ru)
 
 ## Установка Jupyter Hub и Jupyter Lab
 
@@ -267,7 +264,7 @@ sudo /opt/conda/envs/python/bin/python -m ipykernel install --prefix=/opt/jupyte
 sudo systemctl restart jupyterhub.service
 ```
 
-Подробнее об установке Jupyter Hub + Jupyter Lab + Conda https://jupyterhub.readthedocs.io/en/stable/installation-guide-hard.html
+[Подробнее об установке Jupyter Hub + Jupyter Lab + Conda](https://jupyterhub.readthedocs.io/en/stable/installation-guide-hard.html)
 
 ## Установка PETL, Pandas
 
@@ -281,10 +278,10 @@ sudo /opt/jupyterhub/bin/python3 -m pip install pandas
 Requests входит в базовую поставку Jupyter Lab.
 
 Документация:
-- papermill: https://papermill.readthedocs.io/en/latest/
-- PETL: https://petl.readthedocs.io/en/stable/
-- Pandas: https://pandas.pydata.org/
-- Requests: https://requests.readthedocs.io/en/master/
+- [Papermill](https://papermill.readthedocs.io/en/latest/)
+- [PETL](https://petl.readthedocs.io/en/stable/)
+- [Pandas](https://pandas.pydata.org/)
+- [Requests](https://requests.readthedocs.io/en/master/)
 
 ## Установка Cronicle
 
@@ -364,7 +361,7 @@ systemctl start cronicle.service
 http://YOUR_SERVER_HOSTNAME:3012/
 ```
 
-Подробнее об установке Cronicle: https://github.com/jhuckaby/Cronicle
+[Подробнее об установке Cronicle](https://github.com/jhuckaby/Cronicle)
 
 ## Установка nginx
 
@@ -530,7 +527,7 @@ grant all privileges on database ${DB_NAME} to ${USERNAME};
 \q
 ```
 
-[Краткое руководство на DO](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart-ru)
+[Краткое руководство на Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart-ru)
 
 ### Работа с таблицами
 
@@ -589,7 +586,7 @@ hostssl all             all             0.0.0.0/0               md5
 service postgresql restart
 ```
 
-Далее в настройка соединения в ODBC выбрать PostgreSQL Unicode и SSL Mode require.
+Далее в настройка соединения в ODBC (на клиенте) выбрать PostgreSQL Unicode и SSL Mode require.
 
 
 **3. Самый правильный и максимально безопасный способ - установка сертификата клиенту.**
