@@ -33,7 +33,7 @@
 Выполнить команду
 
 ```
-git clone https://github.com/DmitriyKhodykin/ETLTool.git && cd ETLTool && chmod +x *.sh && sudo fast_start.sh
+sudo apt-get update && sudo apt-get install git -y && git clone https://github.com/DmitriyKhodykin/ETLTool.git && cd ETLTool && sudo chmod +x *.sh && sudo ./fast_start.sh
 ```
 
 ## Управление пользователями
