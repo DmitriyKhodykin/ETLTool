@@ -39,7 +39,7 @@ sudo apt-get update && sudo apt-get install git -y && git clone https://github.c
 ## Управление пользователями
 
 ```
-sudo user.sh
+sudo ./user.sh
 ```
 
 Будет выведена подсказка по ключам.
