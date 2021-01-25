@@ -33,15 +33,21 @@
 Выполнить команду
 
 ```
-sudo apt-get update && sudo apt-get install git -y && git clone https://github.com/DmitriyKhodykin/ETLTool.git && cd ETLTool && sudo chmod +x *.sh && sudo ./fast_start.sh
+sudo apt-get update && sudo apt-get -qq install git -y && git clone https://github.com/DmitriyKhodykin/ETLTool.git && cd ETLTool && sudo chmod +x *.sh && sudo ./fast_start.sh
 ```
+
+Потребуется ваше участие ближе к завершению установки (включение ufw, пароль адмниа cronicle, создание пользователя).
 
 ## Управление пользователями
 
 ```
-sudo user.sh
+sudo ./user.sh
 ```
 
 Будет выведена подсказка по ключам.
 
 При создании пользователя создаётся его учётная запись для авторизации в Jupyter, Cronicle, PostgreSQL (так же создаётся таблица, название совпадает с логином).
+
+## Подключение Power BI к PostgreSQL
+
+[Инструкция по настройке](MANUALLY.md#подключение-power-bi)

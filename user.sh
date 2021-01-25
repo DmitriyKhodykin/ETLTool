@@ -19,6 +19,7 @@ case "$ACTION_NAME" in
             pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
             useradd -m -p "$pass" "$username"
             usermod -aG sudo "$username"
+            cp -r examples "/home/$username"
             sudo chown -R "$username" "/home/$username"
             service cronicle stop
 			node /opt/cronicle/bin/useradd.js $username $password

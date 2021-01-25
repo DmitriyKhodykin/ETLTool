@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [ "$EUID" -ne 0 ]
+    then echo "Please run with sudo"
+    exit
+fi
+
 # Установка nodejs 14.15.*
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 echo "Установка nodejs"
@@ -131,13 +136,23 @@ cp -f postgresql/pg_hba.conf /etc/postgresql/12/main/
 service postgresql restart
 
 # UFW
+echo "Базовая натсройка UFW"
+sleep 2
+sudo ufw allow ssh
+sudo ufw allow openssh
+sudo ufw allow 3012/tcp
+sudo ufw allow 'Nginx HTTP'
+sudo ufw allow postgresql/tcp
+sudo ufw allow 5432/tcp
+sudo ufw enable
 
-cat << EOF
+# Завершение установки
+echo "Изменение пароля админа Cronicle"
+sleep 2
+bash ./user.sh -a
 
-Установка завершена!
+echo "Создание первого пользователя"
+sleep 2
+bash ./user.sh -u
 
-Чтобы добавить нового пользователя выполните user.sh -u
-
-Смените пароль cronicle, выполните user.sh -a
-
-EOF
+echo "Установка завершена!"
