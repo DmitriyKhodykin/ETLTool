@@ -136,7 +136,7 @@ cp -f postgresql/pg_hba.conf /etc/postgresql/12/main/
 service postgresql restart
 
 # UFW
-echo "Базовая натсройка UFW"
+echo "Базовая настройка UFW"
 sleep 2
 sudo ufw allow ssh
 sudo ufw allow openssh
