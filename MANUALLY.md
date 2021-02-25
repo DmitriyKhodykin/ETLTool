@@ -586,7 +586,12 @@ hostssl all             all             0.0.0.0/0               md5
 service postgresql restart
 ```
 
-Далее в настройка соединения в ODBC (на клиенте) выбрать PostgreSQL Unicode и SSL Mode require.
+Далее в клиенте:
+```
+Получить данные -> ODBC -> Дополнительно
+Driver={PostgreSQL ANSI(x64)};Server=IP;Port=5432;Database=name_db;
+```
+[Подробнее тут](https://niftit.com/connecting-power-bi-to-postgresql/)
 
 
 **3. Самый правильный и максимально безопасный способ - установка сертификата клиенту.**
